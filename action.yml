@@ -1,0 +1,32 @@
+---
+name: 'Download Gzip Artifact'
+description: 'Downloads an artifact and unpacks it with tar'
+author: "Nicolas Merget"
+branding:
+  icon: package
+  color: gray-dark
+inputs:
+  name:
+    description: 'Name for artifact'
+    required: true
+  path:
+    description: 'Path for unpacking'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: ⏬ Download build
+      uses: actions/download-artifact@v3
+      with:
+        name: ${{ inputs.name }}
+        path: ${{ inputs.path }}
+
+    - name: 📦 Unpack Tar
+      run: tar -zxf ${{ inputs.name }}.tar.gz
+      working-directory: ${{ inputs.path }}
+      shell: bash
+
+    - name: 🚮 Remove tar
+      run: rm ${{ inputs.name }}.tar.gz
+      working-directory: ${{ inputs.path }}
+      shell: bash
