@@ -11,7 +11,7 @@ inputs:
     required: true
   path:
     description: 'Path for unpacking'
-    required: true
+    required: false
 runs:
   using: 'composite'
   steps:
